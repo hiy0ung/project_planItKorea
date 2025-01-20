@@ -1,4 +1,5 @@
 //! 유저 타입(회원 가입 시)
+// 구
 export interface User {
   id: string;
   password: string;
@@ -8,6 +9,48 @@ export interface User {
   wishList: number[];
   reservation: Reservation[];
 }
+
+// 신
+export type NewUser = {
+  userId: string;
+  userPassword: string;
+  checkPassword: string;
+  userName: string;
+  userBirthDate: string;
+  userPhone: string;
+  userEmail: string;
+}
+
+// 중복확인 에러 메세지 타입
+export type DuplicationError = {
+  userId: string,
+  userEmail: string
+}
+
+// 중복확인 성공 메세지 타입
+export type DuplicationSuccess = {
+  userId: string,
+  userEmail: string
+}
+
+// 로그인 요청 타입
+export type LoginInfo = {
+  userId: string,
+  userPassword: string
+};
+
+// 로그인 응답 타입
+export type LoginSuccessResponse = {
+  token: string;
+  exprTime: number;
+}
+
+// 로그인 에러 메세지 관리 타입
+export type ErorrMsg = {
+  userId: string,
+  userPassword: string
+}
+
 
 //! 예약할때 타입
 export interface Reservation {
@@ -20,6 +63,21 @@ export interface Reservation {
   endDate: string; //날짜
   person: number; // 인원
   img: string[]; // 숙소이미지
+}
+
+//& 신 예약 정보 타입
+export type NewReservation = {
+  id: number;
+  userId: number;
+  productId: number;
+  subProductId: number;
+  person: number;
+  totalPrice: string;
+  startDate: Date;
+  endDate: Date;
+  reservationStatus: number;
+  productImg: string;
+  productName: string;
 }
 
 // 예약 확인
@@ -36,20 +94,43 @@ export interface SearchBarFilter {
 //! 공지사항
 export type Announcement = {
   id: number;
-  title: string;
-  content: string;
+  boardType: BoardType;
+  boardTitle: string;
+  boardContent: string;
   author: string;
+  uploadDate: Date;
 };
 
-//! 문의 사항
-export type Inquiry = {
-  id: string;
-  userId: string;
-  category: InquiryType;
-  title: string;
-  content: string;
-  image: string[] | undefined;
+export type BoardType = "공지사항" | "자주묻는질문";
+
+//! 문의사항
+export type InquiryAllResponse = {
+  inquiryId: number;
+  inquiryTitle: string;
+  inquiryCategory: InquiryType;
 };
+
+export type InquiryList = {
+  inquiryId: number;
+  inquiryTitle: string;
+  inquiryCategory: InquiryType;
+};
+
+export type InquiryDetail = {
+  inquiryId: number;
+  inquiryTitle: string;
+  inquiryCategory: InquiryType;
+  inquiryContent: string;
+  inquiryImage: any;
+};
+
+export type InquiryRequest = {
+  inquiryTitle: string,
+  inquiryCategory: InquiryType,
+  inquiryContent: string,
+  inquiryImage: any,
+}
+
 
 //! 문의사항 유형 선택
 export type InquiryType = "결제" | "취소" | "환불";
