@@ -29,6 +29,9 @@ public class Product {
     @Column(name = "product_description")
     private String productDescription;
 
+    @Column(name = "product_category", nullable = false)
+    private String productCategory;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SubProduct> subProducts;
 
@@ -37,4 +40,12 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductCity> productCities;
+
+    @ManyToMany
+    @JoinTable(
+            name = "Product_Facilities",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "facility_id")
+    )
+    private List<Facility> facilities = new ArrayList<>();
 }

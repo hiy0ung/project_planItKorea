@@ -24,7 +24,6 @@ target/
 *.ear
 *.log
 *.project
-application.properties
 *.classpath
 *.settings/
 target/
