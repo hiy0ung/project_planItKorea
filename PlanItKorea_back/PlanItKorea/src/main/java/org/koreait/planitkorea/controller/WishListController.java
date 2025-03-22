@@ -19,19 +19,17 @@ public class WishListController {
 
     private final WishListService wishListService;
 
-    public static final String WISH_LIST_CREATE = "/create";
-    public static final String WISH_LIST_GET = "/get";
-    public static final String WISH_LIST_DELETE = "/delete/{wishListId}";
+    public static final String WISH_LIST_DELETE = "/{wishListId}";
 
 
-    @PostMapping(WISH_LIST_CREATE)
+    @PostMapping()
     public ResponseEntity<ResponseDto<Boolean>> addWishList(@AuthenticationPrincipal Long id, @RequestParam Long productId) {
         ResponseDto<Boolean> response =  wishListService.addWishList(id, productId);
         HttpStatus status = response.isResult() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
         return ResponseEntity.status(status).body(response);
     }
 
-    @GetMapping(WISH_LIST_GET)
+    @GetMapping()
     public ResponseEntity<ResponseDto<List<WishListResponseDto>>> getAllWishList(@AuthenticationPrincipal Long id) {
         ResponseDto<List<WishListResponseDto>> response = wishListService.getAllWishList(id);
         HttpStatus status = response.isResult() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;

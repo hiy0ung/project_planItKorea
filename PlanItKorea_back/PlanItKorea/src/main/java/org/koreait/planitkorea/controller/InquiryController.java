@@ -21,25 +21,23 @@ public class InquiryController {
 
     private final InquiryService inquiryService;
 
-    public static final String INQUIRY_CREATE = "/create";
-    public static final String INQUIRY_GET = "/get";
-    public static final String INQUIRY_GET_BY_ID = "/get/{inquiryId}";
-    public static final String INQUIRY_PUT = "/update/{inquiryId}";
-    public static final String INQUIRY_DELETE = "/delete/{inquiryId}";
+    public static final String INQUIRY_GET_BY_ID = "/{inquiryId}";
+    public static final String INQUIRY_PUT = "/{inquiryId}";
+    public static final String INQUIRY_DELETE = "/{inquiryId}";
 
     // 생성
-    @PostMapping(INQUIRY_CREATE)
+    @PostMapping()
     public ResponseEntity<ResponseDto<InquiryResponseDto>> createInquiry(
             @AuthenticationPrincipal Long id,
             @ModelAttribute InquiryRequestDto dto
     ) {
-      ResponseDto<InquiryResponseDto> response = inquiryService.createInquiry(id, dto);
-      HttpStatus status = response.isResult() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
-      return ResponseEntity.status(status).body(response);
+        ResponseDto<InquiryResponseDto> response = inquiryService.createInquiry(id, dto);
+        HttpStatus status = response.isResult() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
+        return ResponseEntity.status(status).body(response);
     }
 
     // 전체 조회
-    @GetMapping(INQUIRY_GET)
+    @GetMapping()
     public ResponseEntity<ResponseDto<List<InquiryAllGetResponseDto>>> getAllInquiry(@AuthenticationPrincipal Long id) {
         ResponseDto<List<InquiryAllGetResponseDto>> response = inquiryService.getAllInquiry(id);
         HttpStatus status = response.isResult() ? HttpStatus.OK : HttpStatus.BAD_REQUEST;
